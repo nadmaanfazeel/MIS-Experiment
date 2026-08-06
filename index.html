@@ -6338,7 +6338,7 @@ var MONTHS={
 var SUPABASE_URL = 'https://cttvaqfnkmwoqedzsyyd.supabase.co';
 var SUPABASE_KEY = 'sb_publishable_KFqN-48wCw1VMCNI1Emyfw_wAMcI0He';
 /* Set this to your n8n "Sync Now" webhook URL once the workflow exists (leave '' to disable). */
-var SYNC_WEBHOOK_URL = '';
+var SYNC_WEBHOOK_URL = '/api/sync';
 
 function _applyBoot(){
   var keys = Object.keys(MONTHS).sort(function (a, b) { return monMeta(b).seq - monMeta(a).seq; });
@@ -6395,7 +6395,7 @@ function _latestUpdatedAt(){
 function syncNow(){
   if(!SYNC_WEBHOOK_URL){
     _syncStatus('Not configured','error');
-    alert('Sync Now is not connected yet.\n\nSet SYNC_WEBHOOK_URL (top of the loader script) to your n8n \'Sync Now\' webhook URL, then redeploy.');
+    alert('Sync Now is not connected yet.\n\nSet SYNC_WEBHOOK_URL (top of the loader script) to /api/sync, then redeploy.');
     setTimeout(function(){ _syncStatus('Sync now',''); }, 2500); return;
   }
   _syncStatus('Syncing\u2026','running');
