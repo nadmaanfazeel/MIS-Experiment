@@ -6398,10 +6398,13 @@ function syncNow(){
     alert('Sync Now is not connected yet.\n\nSet SYNC_WEBHOOK_URL (top of the loader script) to /api/sync, then redeploy.');
     setTimeout(function(){ _syncStatus('Sync now',''); }, 2500); return;
   }
+  var mf=window.prompt('Which month to publish?\n\nType the SharePoint folder name exactly, e.g.  Jul\u002726');
+  if(!mf){ return; }
+  mf=mf.trim();
   _syncStatus('Syncing\u2026','running');
   _latestUpdatedAt().then(function(before){
     return fetch(SYNC_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({month:CURRENT_MONTH,source:'dashboard'})})
+        body:JSON.stringify({month_folder:mf,source:'dashboard'})})
       .then(function(r){ if(!r.ok) throw new Error('webhook '+r.status); })
       .then(function(){
         _syncStatus('Syncing\u2026 (a few min)','running');
